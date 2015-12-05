@@ -1,0 +1,41 @@
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+ "use strict";
+ (
+   function() {
+    let template = `
+      <svg width="50" height="50">
+        <circle cx="25" cy="25" r="25" fill="purple" />
+      </svg>
+    `;
+    class D3DrawWidget extends HTMLElement {
+        constructor(){
+          this._root = null; 
+        }
+        // Fires when an instance of the element is created.
+        createdCallback() {
+          this._root = this.createShadowRoot();
+          this._root.innerHTML = template;
+          d3.select(this._root).select("circle").on("click", function(){
+            d3.select(this).attr("fill", function(d){
+                var currentColor = d3.select(this).attr("fill");
+                if(currentColor=="purple"){
+                  return "orange";
+                }else{
+                  return "purple";
+                }
+            });
+          })
+        };
+        // Fires when an instance was inserted into the document.
+        attachedCallback() {
+
+        };
+        // Fires when an attribute was added, removed, or updated.
+        attributeChangedCallback(attrName, oldVal, newVal) {
+
+        };
+    }
+    document.registerElement('d3draw-widget', D3DrawWidget);
+})();  
+</script>
