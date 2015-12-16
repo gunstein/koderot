@@ -1,0 +1,3 @@
+The example consists of two custom elements. The inner element is called d3draw-widget and is a simple SVG circle that switch color between orange and purple when clicked. After color is changed it fires the custom event "color-changed".
+The outer element is called draw-it and consists of d3draw-widget and a simple input element that will have a text value with the color of the circle. Draw-it listens for "color-changed" events from d3draw-widget and uses the event detail to set the right color in the input field.
+Index.html consists of draw-it and a pushbutton that sets the color of the SVG circle to green. The borders is a mess, but their purpose is to visualize the element hierarchy.
