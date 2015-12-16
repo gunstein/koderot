@@ -1,0 +1,55 @@
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+ "use strict";
+ (
+   function() {
+    let template = `
+      <style>
+        .framed{
+          border: 1px solid green;
+        }
+      </style>
+      <div class="framed">
+        <svg width="50" height="50">
+          <circle cx="25" cy="25" r="25" fill="purple" />
+        </svg>
+      </div>
+    `;
+    class D3DrawWidget extends HTMLElement {
+        constructor(){
+          this._root = null;
+        }
+        // Fires when an instance of the element is created.
+        createdCallback() {
+          this._root = this.createShadowRoot();
+          this._root.innerHTML = template;
+          d3.select(this._root).select("circle").on("click", function(){
+            d3.select(this).attr("fill", () => {
+                var currentColor = d3.select(this).attr("fill");
+                if(currentColor=="purple"){
+                  this.dispatchEvent(new CustomEvent("color-changed", {detail:{color: "orange"}}));
+                  return "orange";
+                }else{
+                  this.dispatchEvent(new CustomEvent("color-changed", {detail:{color: "purple"}}));
+                  return "purple";
+                }
+            });
+          })
+        };
+        // Fires when an instance was inserted into the document.
+        attachedCallback() {
+
+        };
+        // Fires when an attribute was added, removed, or updated.
+        attributeChangedCallback(attrName, oldVal, newVal) {
+
+        };
+
+        setColorGreen(){
+          d3.select(this._root).select("circle").attr("fill", "green");
+          this.dispatchEvent(new CustomEvent("color-changed", {detail:{color: "green"}}));
+        }
+    }
+    document.registerElement('d3draw-widget', D3DrawWidget);
+})();
+</script>

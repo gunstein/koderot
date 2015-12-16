@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gvtest</title>
+    <link rel="import" href="components/draw-it.es6.comp.html">
+</head>
+<body>
+  <style>
+    .framed3{
+      border: 1px solid red;
+    }
+  </style>
+  <div class="framed3">
+    <draw-it  id="drawit"></draw-it>
+    <button id="setGreenBtn" type="button">Set green</button>
+  </div>
+
+  <script>
+    document.getElementById("setGreenBtn").addEventListener("click", function(){
+      document.getElementById("drawit").setColorGreen();
+    });
+
+//    var draw = document.getElementById("drawit");
+//    draw.addEventListener("color-changed", function(e){
+//      console.log("color-changed received in root.");
+//    });
+  </script>
+</body>
+</html>

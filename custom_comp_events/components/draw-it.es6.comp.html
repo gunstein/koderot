@@ -1,0 +1,48 @@
+<link rel="import" href="d3-draw.es6.comp_v2.html">
+<script>
+ "use strict";
+ (
+   function() {
+    let template = `
+      <style>
+        .framed2{
+          border: 1px solid blue;
+        }
+      </style>
+      <div class="framed2">
+      <d3draw-widget id="d3draw"></d3draw-widget>
+      <input type="text" name= "color" id="colorinput"></input>
+      </div>
+    `;
+    class DrawIt extends HTMLElement {
+        constructor(){
+          super();
+          this._root = null;
+        }
+        // Fires when an instance of the element is created.
+        createdCallback() {
+          this._root = this.createShadowRoot();
+          this._root.innerHTML = template;
+
+          var draw = this._root.querySelector("#d3draw");
+          draw.addEventListener("color-changed", (e)=>{
+            console.log("received color-changed event in DrawIt.");
+            this._root.getElementById("colorinput").value=e.detail.color;
+          });
+        };
+        // Fires when an instance was inserted into the document.
+        attachedCallback() {
+
+        };
+        // Fires when an attribute was added, removed, or updated.
+        attributeChangedCallback(attrName, oldVal, newVal) {
+
+        };
+
+        setColorGreen(){
+          this._root.getElementById("d3draw").setColorGreen();
+        }
+    }
+    document.registerElement('draw-it', DrawIt);
+})();
+</script>
